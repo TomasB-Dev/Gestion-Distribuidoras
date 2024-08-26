@@ -10,6 +10,12 @@ def Main_Menu():#funciones del menu principal
     #Botones del meno principal
     btn_Cargar = tk.Button(root, text="Cargar Datos", bg=GRIS,fg=NEGRO,width=20,height=3)
     btn_Cargar.pack(side=tk.LEFT, padx=10,pady=10)
+
+    btn__Ver_Registros = tk.Button(root,text="Ver Registros", bg=GRIS,fg=NEGRO,width=20,height=3)
+    btn__Ver_Registros.pack(side=tk.LEFT, padx=10, pady=10)
+
+    btn_Calcular_Promedio = tk.Button(root,text="Calcular Promedio", bg=GRIS,fg=NEGRO,width=20,height=3)
+    btn_Calcular_Promedio.pack(side=tk.LEFT,padx=10,pady=10)
 root = tk.Tk()
 root.title("Distribuidoras Mabel")
 root.geometry("720x460")
