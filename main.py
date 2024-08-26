@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox, filedialog
+from tkcalendar import Calendar, DateEntry
 from openpyxl import load_workbook, Workbook
 #COLORES
 GRIS = "#d8cccc"
@@ -9,7 +10,7 @@ def Cargar_datos_Excel(archivo):# carga datos del excel
     wb = load_workbook(archivo)
     ws = wb.active
     registros = []
-    for row in ws.iter_rows(min_row=2):
+    for row in ws.iter_rows(min_row=2): #itera las filas del excel
         if len(row) == 5:
             distribuidora_Name , cargador, distco, volumen, fecha = row
             registros.append((distribuidora_Name, cargador, distco, volumen, fecha))
@@ -26,6 +27,21 @@ def Cargar_Datos():#seleccionar el archivo a cargar
         registros = Cargar_datos_Excel(archivo)
         messagebox.showinfo("Éxito", "Los datos fueron cargados")
 
+def Calcular_Promedios():
+    for widget in root.winfo_children(): #limpiar la screen cada vez que llama la funcion
+        widget.destroy()
+    lbl_Fecha_Incio = tk.Label(root, text="Fecha de Inicio:", bg="gray",fg=NEGRO)
+    lbl_Fecha_Incio.pack(pady=10)
+    #entry de la fecha
+    entry_Fecha_Inicio = DateEntry(root, date_pattern='yyyy-mm-dd')
+    entry_Fecha_Inicio.pack(pady=10)
+
+    btn_Calcular_Promedio = tk.Button(root,text="Calcular", bg=GRIS,fg=NEGRO) #btn para calcular el promedio
+    btn_Calcular_Promedio.pack(pady=10)
+
+    btn_Back_Menu  = tk.Button(root,text="VOLVER",bg=GRIS,fg=NEGRO, command=Main_Menu)
+    btn_Back_Menu.pack(pady=10)
+
 def Main_Menu():#funciones del menu principal
     for widget in root.winfo_children(): #limpiar la screen cada vez que llama la funcion
         widget.destroy()
@@ -36,7 +52,7 @@ def Main_Menu():#funciones del menu principal
     btn__Ver_Registros = tk.Button(root,text="Ver Registros", bg=GRIS,fg=NEGRO,width=20,height=3)
     btn__Ver_Registros.pack(side=tk.LEFT, padx=10, pady=10)
 
-    btn_Calcular_Promedio = tk.Button(root,text="Calcular Promedio", bg=GRIS,fg=NEGRO,width=20,height=3)
+    btn_Calcular_Promedio = tk.Button(root,text="Calcular Promedio", bg=GRIS,fg=NEGRO,width=20,height=3,command=Calcular_Promedios)
     btn_Calcular_Promedio.pack(side=tk.LEFT,padx=10,pady=10)
 root = tk.Tk()
 root.title("Distribuidoras Mabel")
