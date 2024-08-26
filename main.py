@@ -4,10 +4,22 @@ from openpyxl import load_workbook, Workbook
 #COLORES
 GRIS = "#d8cccc"
 NEGRO = "#111111"
-def Cargar_datos_Excel(archivo):
+
+def Cargar_datos_Excel(archivo):# carga datos del excel
     wb = load_workbook(archivo)
+    ws = wb.active
+    registros = []
+    for row in ws.iter_rows(min_row=2):
+        if len(row) == 5:
+            distribuidora_Name , cargador, distco, volumen, fecha = row
+            registros.append((distribuidora_Name, cargador, distco, volumen, fecha))
+        else:
+            messagebox.showerror("Error en el registro de datos")
     
-def Cargar_Datos():#seleccionar el archivo a analizar
+    return registros
+
+    
+def Cargar_Datos():#seleccionar el archivo a cargar
     archivo = filedialog.askopenfilename(title="Seleccionar archivo de Excel", filetypes=(("Archivos de Excel", "*.xlsx"), ("Todos los archivos", "*.*")))
     if archivo:
         global registros
